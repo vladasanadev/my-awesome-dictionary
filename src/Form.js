@@ -1,10 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import { Result } from "./Result";
 
 export const Form = () => {
   const [word, setWord] = useState("");
+  const [result, setResult] = useState(null);
   const handleResponse = (response) => {
     console.log(response.data[0]);
+    setResult(response.data[0]);
   };
 
   const search = (e) => {
@@ -18,14 +21,16 @@ export const Form = () => {
     setWord(e.target.value);
   };
   return (
-    <form onSubmit={search}>
-      <input
-        onChange={handleInputChange}
-        value={word}
-        type="search"
-        autoFocus={true}
-      />
-      <p>{word}</p>
-    </form>
+    <div>
+      <form onSubmit={search}>
+        <input
+          onChange={handleInputChange}
+          value={word}
+          type="search"
+          autoFocus={true}
+        />
+      </form>
+      <Result result={result} />
+    </div>
   );
 };
